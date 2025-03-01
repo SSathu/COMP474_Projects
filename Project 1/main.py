@@ -1,12 +1,28 @@
 import spacy
 import responses
 import re
-
+#python -m spacy download en_core_web_sm
 nlp = spacy.load("en_core_web_sm");
 
+def preprocess_text(text):
+    # Pass user input into nlp
+    doc = nlp(text)
+
+    #Using token.lemma to convert words into base form
+    #Also removing punctuation and articles with "if not token.is_stop/if not token.is_punct"
+    question_words = {"what", "how", "why", "who", "when", "where"}
+    programming_keywords = {"if", "else", "elseif", "while", "for", "switch", "case", "try", "except", "finally"}  
+
+    processed_text = " ".join([
+        token.lemma_ 
+        for token in doc 
+        if not token.is_punct and (token.text.lower() in question_words or token.text.lower() in programming_keywords or not token.is_stop)
+    ])
+    #Convert to lower case and return
+    return processed_text.lower()
 
 def get_response(user_input):
-    text = user_input.lower()
+    text = preprocess_text(user_input)
 
     # Basic Resp
     for intent in ["greet", "bye", "help"]:
