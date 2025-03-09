@@ -11,7 +11,7 @@ def preprocess_text(text):
     #Using token.lemma to convert words into base form
     #Also removing punctuation and articles with "if not token.is_stop/if not token.is_punct"
     question_words = {"what", "how", "why", "who", "when", "where"}
-    programming_keywords = {"if", "else", "elseif", "while", "for", "switch", "case", "try", "except", "finally"}  
+    programming_keywords = {"if", "else", "elseif", "while", "for", "switch", "case", "try", "except", "finally", "overloading"}  
 
     processed_text = " ".join([
         token.lemma_ 
@@ -21,7 +21,9 @@ def preprocess_text(text):
     #Convert to lower case and return
     return processed_text.lower()
 
+
 def get_response(user_input):
+    user_input = re.sub(r'\s+', ' ', user_input.strip())  # Clean up extra spaces
     text = preprocess_text(user_input)
 
     # Basic Resp
@@ -34,19 +36,46 @@ def get_response(user_input):
         if re.search(pattern, text):
             return responses.responses[intent]
 
-    return responses.responses["default"]  # Default
+    return responses.responses["default"]  
 
 
 
 def chat():
-    print("Chatbot: Hello! Type 'bye' to exit.")
     while True:
-        user_input = input("You: ")
-        if user_input.lower() == "bye":
+        user_input = input("You: ").strip().lower()
+
+        if user_input == "bye":
             print("Chatbot: Goodbye!")
             break
+
+        if user_input == "start":
+            showcase_responses()  # Display the showcase responses
+            continue  # Go back to waiting for user input
+        
         response = get_response(user_input)
         print("Chatbot:", response)
+
+
+# Showcase function for demo purposes
+def showcase_responses():
+    print("=== Chatbot Showcase demo===\n")
+
+    if not responses.patterns:
+        print("No predefined patterns found.")
+        return
+
+    # Iterate over predefined responses
+    for intent, pattern in responses.patterns.items():
+        # Extract the first example input from the regex pattern
+        example_input = re.sub(r"\\b|\(|\)", "", pattern.split("|")[0])  # Removes \b, ( and )
+        example_input = re.sub(r"\s+", " ", example_input).strip()  # Replace multiple spaces with a single space
+
+        response = get_response(example_input)
+
+        print(f"User: {example_input}")
+        print(f"Chatbot: {response}\n")
+
+
 
 
 if __name__ == "__main__":
