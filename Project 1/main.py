@@ -23,7 +23,7 @@ def preprocess_text(text):
 
 
 def get_response(user_input):
-    user_input = re.sub(r'\s+', ' ', user_input.strip())  # Clean up extra spaces
+    user_input = re.sub(r'\s+', ' ', user_input.strip())  
     text = preprocess_text(user_input)
 
     # Basic Resp
@@ -49,8 +49,8 @@ def chat():
             break
 
         if user_input == "start":
-            showcase_responses()  # Display the showcase responses
-            continue  # Go back to waiting for user input
+            showcase_responses()  
+            continue  
         
         response = get_response(user_input)
         print("Chatbot:", response)
@@ -67,8 +67,8 @@ def showcase_responses():
     # Iterate over predefined responses
     for intent, pattern in responses.patterns.items():
         # Extract the first example input from the regex pattern
-        example_input = re.sub(r"\\b|\(|\)", "", pattern.split("|")[0])  # Removes \b, ( and )
-        example_input = re.sub(r"\s+", " ", example_input).strip()  # Replace multiple spaces with a single space
+        example_input = re.sub(r"\\b|\(|\)", "", pattern.split("|")[0])  
+        example_input = re.sub(r"\s+", " ", example_input).strip()  
 
         response = get_response(example_input)
 
