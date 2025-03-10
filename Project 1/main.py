@@ -26,12 +26,6 @@ def get_response(user_input):
     user_input = re.sub(r'\s+', ' ', user_input.strip())  
     text = preprocess_text(user_input)
 
-    # Basic Resp
-    for intent in ["greet", "bye", "help"]:
-        if re.search(responses.patterns[intent], text):
-            return responses.responses[intent]
-
-    # Java terms
     for intent, pattern in responses.patterns.items():
         if re.search(pattern, text):
             return responses.responses[intent]
@@ -80,3 +74,4 @@ def showcase_responses():
 
 if __name__ == "__main__":
     chat()
+
