@@ -1,3 +1,8 @@
+#Team Members:
+#1. Sathurthikan Saththyvel 40213455
+#2. Alex Lee Tong Fong 40220887
+#3. Victor Zhou (Unknown)
+
 import spacy
 import responses
 import re
@@ -61,8 +66,8 @@ def showcase_responses():
     # Iterate over predefined responses
     for intent, pattern in responses.patterns.items():
         # Extract the first example input from the regex pattern
-        example_input = re.sub(r"\\b|\(|\)", "", pattern.split("|")[0])  
-        example_input = re.sub(r"\s+", " ", example_input).strip()  
+        example_input = re.sub(r"\\b|\(|\)", "", pattern.split("|")[0])
+        example_input = re.sub(r"\s+", " ", example_input).strip()
 
         response = get_response(example_input)
 
