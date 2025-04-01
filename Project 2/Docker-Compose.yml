@@ -1,0 +1,47 @@
+services:
+  fastapi:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/code/app
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "
+      exec fastapi run app/main.py --port 80 &&
+      EXPOSE 80
+      "
+    networks:
+      - mynet
+  
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ~/.ollama_data:/root/.ollama
+    container_name: ollama_server
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "
+      ollama serve &
+      wait
+      "
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    networks:
+      - mynet
+
+volumes:
+  ollama_data:
+
+networks:
+  mynet:
+    driver: bridge
