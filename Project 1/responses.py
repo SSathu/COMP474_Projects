@@ -1,3 +1,4 @@
+# Dictionary containing chatbot responses for user inputs
 responses = {
     # Basic Responses
     "greet": "Hello! How can I help you today?",
@@ -36,6 +37,7 @@ responses = {
     "final": "The final keyword in Java is used to restrict the user from changing the value of a variable, method, or class.",
 }
 
+# Dictionary containing regular expressions to match user input to predefined intents
 patterns = {
     # Basic patterns
     "greet": r"\b(hello|hi|hey|greetings|howdy)\b",
