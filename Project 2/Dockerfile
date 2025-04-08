@@ -22,10 +22,8 @@ RUN ls -la /scripts && \
 # install requirements
 WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-
-# run setup script
-RUN /scripts/setup.sh
 
 # copy app code
 COPY ./app /code/app
