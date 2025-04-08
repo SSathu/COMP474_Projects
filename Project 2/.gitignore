@@ -173,3 +173,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# for logs
+terminal_io/logs/*.log
+
