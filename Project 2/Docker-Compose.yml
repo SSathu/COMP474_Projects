@@ -1,6 +1,7 @@
 services:
   fastapi:
     build: .
+    container_name: fastapi
     ports:
       - "80:80"
     volumes:
@@ -17,7 +18,7 @@ services:
       "
     networks:
       - mynet
-  
+
   ollama:
     image: ollama/ollama
     ports:
@@ -38,6 +39,21 @@ services:
       retries: 5
     networks:
       - mynet
+
+  terminalio:
+    build:
+      context: ./terminal_io
+    container_name: terminal-io
+    depends_on:
+      - fastapi
+    networks:
+      - mynet
+    tty: true
+    stdin_open: true
+    env_file:
+      - ./terminal_io/.env
+    volumes:
+      - ./terminal_io/logs:/terminal_io/logs
 
 volumes:
   ollama_data:
