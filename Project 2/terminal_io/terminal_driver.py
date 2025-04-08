@@ -27,9 +27,8 @@ empty_indentation = hanging_space.ljust(desired_length) + "=>"
 
 welcome_message = [
     f"{chatbot_indentation} Hi! Welcome to our Chatbot!",
-    f"{empty_indentation} Can we start with your name please?"
+    f"{empty_indentation} What do you want to talk about today?"
 ]
-
 
 # -----MAIN-ASYNC-LOOP---------
 
