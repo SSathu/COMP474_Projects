@@ -83,4 +83,5 @@ class HTTPConnector:
             return None
             # fallback -> returns None if anything crashes
                 
-        pass
+        finally:
+            await self.close_http_session()
