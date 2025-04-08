@@ -3,6 +3,7 @@
 from components.TerminalClient import TerminalClient
 from components.connector import HTTPConnector
 from logs.loggers import logger
+import time
 
 # -----INITIALIZATION-------------
 
@@ -13,15 +14,7 @@ tClient = TerminalClient()
 
 if __name__=="__main__":
     
-    logger.info("Starting Terminal Chatbot....")
+    time.sleep(5)
+    # giving docker enough time to attach the container to the terminal, so we dont miss any outputs
     
-    print("hello this is from the terminal! Please provide your name: ", end='')
-    
-    while True:
-        
-        answer = input()
-        
-        print(f"this was your answer: {answer}")
-        
-        
-        pass
+    logger.debug("Starting Terminal Chatbot....")

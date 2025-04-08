@@ -6,8 +6,8 @@ COMPOSE_BAKE=true docker-compose up --build -d
 clear 
 # clears the terminal
 
-docker start -a terminal-io
-# runs the terminak container in attach mode
+docker attach terminal-io
+# attach the container to the terminal
 
 
 
