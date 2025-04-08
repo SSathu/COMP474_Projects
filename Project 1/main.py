@@ -1,24 +1,23 @@
 #Team Members:
 #1. Sathurthikan Saththyvel 40213455
 #2. Alex Lee Tong Fong 40220887
+#3. Victor Zhou (Unknown)
 
 import spacy
 import responses
 import re
-#Tokenize/lemmatize input text
+#python -m spacy download en_core_web_sm
 nlp = spacy.load("en_core_web_sm");
 
-# Remove punctuation/stop words (the, is, etc)
 def preprocess_text(text):
     # Pass user input into nlp
     doc = nlp(text)
 
+    #Using token.lemma to convert words into base form
     #Also removing punctuation and articles with "if not token.is_stop/if not token.is_punct"
-    # Keep important words in a question 
     question_words = {"what", "how", "why", "who", "when", "where"}
     programming_keywords = {"if", "else", "elseif", "while", "for", "switch", "case", "try", "except", "finally", "overloading"}  
 
-    #Using token.lemma to convert words into base form
     processed_text = " ".join([
         token.lemma_ 
         for token in doc 
@@ -27,31 +26,27 @@ def preprocess_text(text):
     #Convert to lower case and return
     return processed_text.lower()
 
-# Match the processed user input against pattern and retrieve response accordingly
-def get_response(user_input):
 
-    # Clean whitespace
+def get_response(user_input):
     user_input = re.sub(r'\s+', ' ', user_input.strip())  
-    # Call preprocess_text()
     text = preprocess_text(user_input)
 
-    # Iterate over predefined response and return it
     for intent, pattern in responses.patterns.items():
         if re.search(pattern, text):
             return responses.responses[intent]
 
     return responses.responses["default"]  
 
-# Run chatbot session in terminal
+
+
 def chat():
     while True:
         user_input = input("You: ").strip().lower()
 
-        # Stop convo if user inputs 'bye'
         if user_input == "bye":
             print("Chatbot: Goodbye!")
             break
-        # Showcase for demo when input is "start"    
+
         if user_input == "start":
             showcase_responses()  
             continue  
@@ -60,7 +55,7 @@ def chat():
         print("Chatbot:", response)
 
 
-# Showcase function for demo purposes "start"
+# Showcase function for demo purposes
 def showcase_responses():
     print("=== Chatbot Showcase demo===\n")
 
@@ -78,6 +73,8 @@ def showcase_responses():
 
         print(f"User: {example_input}")
         print(f"Chatbot: {response}\n")
+
+
 
 
 if __name__ == "__main__":

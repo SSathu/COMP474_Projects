@@ -16,6 +16,10 @@ RUN mkdir -p /scripts
 # make scripts executable
 COPY ./scripts/entrypoint.sh /scripts/entrypoint.sh
 COPY ./scripts/ollama-entrypoint.sh /scripts/ollama-entrypoint.sh
+<<<<<<< HEAD
+COPY ./scripts/setup.sh /scripts/setup.sh
+=======
+>>>>>>> d85a853ca654d6cb5755d15401b7893510a03886
 RUN ls -la /scripts && \
     chmod +x /scripts/*.sh
 
@@ -23,6 +27,9 @@ RUN ls -la /scripts && \
 WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+
+# run setup script
+RUN /scripts/setup.sh
 
 # copy app code
 COPY ./app /code/app
