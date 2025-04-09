@@ -4,7 +4,6 @@ from langchain_ollama import OllamaLLM
 
 from routes import classify_router
 from tools.classifier import ClassifierTool
-from tools.dbpediaAPI import get_from_dbpedia_spotlight
 
 import os
 
@@ -32,24 +31,3 @@ async def testing(request: Request):
     data = request.json if request else None
     
     return {"response": data}
-
-@app.post('/testing/dbpedia/spotlight')
-async def testing(request: Request):
-    # EXAMPLE OF HOW TO USE GET_FROM_DBPEDIA_SPOTLIGHT()
-    
-    data = await request.json()
-    
-    text = data['text']
-    
-    annotated_text = get_from_dbpedia_spotlight(text)
-    
-    return {"response": annotated_text}
-
-
-
-
-# ---LIST-OF-METHODS-TO-USE------
-
-# get_from_dbpedia_spotlight(text)
-# returns the entire ressource.
-# ressource is a list of dic
