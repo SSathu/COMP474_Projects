@@ -45,7 +45,7 @@ async def main_loop():
     
     print()
     
-    response = await hc.send_message(path="/testing", data={"message":answer})
+    response = await hc.send_message(path="/testing", data={"text":answer})
     
     # expects a response of format {"response":"......."}
     
@@ -85,7 +85,7 @@ async def main_loop():
             await hc.close_http_session()
             break
         
-        response_2 = await hc.send_message(path="/testing", data={"message":user_input})
+        response_2 = await hc.send_message(path="/testing", data={"text":user_input})
         
         raw_response_first_2 = response_2["response"]
     
