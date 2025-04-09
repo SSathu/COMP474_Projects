@@ -2,11 +2,12 @@ from fastapi import APIRouter, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
 from tools.classifier import ClassifierTool
 from tools.syntax_tree import SyntaxTreeTool
-from models.schemas import Query
+from models import Query
 import spacy
 from spacy import displacy
 from spacy.matcher import Matcher
 from IPython.core.display import JSON
+from logs import logger
 
 
 
@@ -20,6 +21,8 @@ async def classify_text(
     query: Query,
     classifier: ClassifierTool = Depends(get_classifier)
 ):
+    
+    logger.debug("llm classifier called...")
     try:
         result = await classifier.classify_query(query)
         return { "agent": result.agent }
@@ -41,6 +44,8 @@ async def clean_text(
             This input transforms the input by converting each non-stop and non-punct token to lowercase.
             It then gets the lemma of each of these tokens and joins them as a string in the output.
     """
+
+    logger.debug("preprocessing text input")
 
     # load spacy for nlp
     nlp = spacy.load("en_core_web_sm")

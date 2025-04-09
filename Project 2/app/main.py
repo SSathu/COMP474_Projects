@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from langchain_ollama import OllamaLLM
+from models import Query
 
 from routes import classify_router
 from tools.classifier import ClassifierTool
@@ -50,12 +51,10 @@ async def testing(request: Request):
     return {"response": annotated_text}
 
 @app.post("/chat")
-async def chat(request: Request):
+async def chat(query: Query):
     
-    data = await request.json()
-    
-    text = data['text']
-    
+    text = await query.text
+
     pass
 
 
