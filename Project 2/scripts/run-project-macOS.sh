@@ -17,3 +17,6 @@ docker attach terminal-io
 # this is for macOS
 
 # if you get permissino issues, run this command : chmod +x run-project-macOS.sh
+
+# if you get bad interpreter issues do this command:
+# sed -i '' -e 's/\r//' run-project-macOS.sh  
