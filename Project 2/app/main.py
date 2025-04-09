@@ -30,4 +30,30 @@ async def testing(request: Request):
     
     data = request.json if request else None
     
-    return {"response": data}
+    lorem_ipsum = """
+Lorem ipsum dolor sit amet, consectetur a
+dipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+"""
+    
+    return {"response": lorem_ipsum}
+
+@app.post('/testing/dbpedia/spotlight')
+async def testing(request: Request):
+    # EXAMPLE OF HOW TO USE GET_FROM_DBPEDIA_SPOTLIGHT()
+    
+    data = await request.json()
+    
+    text = data['text']
+    
+    annotated_text = get_from_dbpedia_spotlight(text)
+    
+    return {"response": annotated_text}
+
+
+
+
+# ---LIST-OF-METHODS-TO-USE------
+
+# get_from_dbpedia_spotlight(text)
+# returns the entire ressource.
+# ressource is a list of dic

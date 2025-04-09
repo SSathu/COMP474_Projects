@@ -43,13 +43,78 @@ async def main_loop():
     
     answer = input(f"{get_username_indentation()} ")
     
+    print()
+    
     response = await hc.send_message(path="/testing", data={"message":answer})
     
     # expects a response of format {"response":"......."}
     
-    print(response["response"])
+    raw_response_first = response["response"]
     
-    # need to do a processing for the output so that its printed clean
+    response_list_1 = raw_response_first.split()
+    
+    for i in range(len(response_list_1)):
+        
+        if i == 0:
+            print(f"{chatbot_indentation} {response_list_1[i]}", end=' ')
+            continue
+        
+        if i == len(response_list_1) - 1:
+            print(f"{response_list_1[i]}")
+            break
+        
+        if not (i % 15 == 0): 
+            print(f"{response_list_1[i]} ", end=' ')
+            continue
+        
+        if (i % 15 == 0):
+            print(f"\n{empty_indentation} {response_list_1[i]}", end=' ')
+    
+    print()
+    
+    # now for the convo loop
+    
+    while True:
+        
+        user_input = input(f"{get_username_indentation()} ")
+        
+        print()
+        
+        if "exit chatbot" in user_input:
+            print(f"{chatbot_indentation} You wrote 'exit chatbot'! Now quitting the program. See you next time!", end=' ')
+            await hc.close_http_session()
+            break
+        
+        response_2 = await hc.send_message(path="/testing", data={"message":user_input})
+        
+        raw_response_first_2 = response_2["response"]
+    
+        response_list_2 = raw_response_first_2.split()
+        
+        for i in range(len(response_list_2)):
+            
+            if i == 0:
+                print(f"{chatbot_indentation} {response_list_2[i]}", end=' ')
+                continue
+            
+            if i == len(response_list_2) - 1:
+                print(f"{response_list_2[i]}")
+                break
+            
+            if not (i % 15 == 0): 
+                print(f"{response_list_2[i]} ", end=' ')
+                continue
+            
+            if (i % 15 == 0):
+                print(f"\n{empty_indentation} {response_list_2[i]}", end=' ')
+        
+        print()
+        
+        
+        
+        
+    
+    
     
 # -----MAIN-METHOD----------------
 

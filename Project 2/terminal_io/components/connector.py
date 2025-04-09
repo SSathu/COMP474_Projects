@@ -75,13 +75,12 @@ class HTTPConnector:
                 
                 return await response.json()
                 # returns the json of the response object, but not sure if we should deconstruct it here and pass the data without the message from the server
-        
+                
         except Exception as e: 
             
             logger.error(f"Error send_message : {e}")
             
+            await self.close_http_session()
+            
             return None
             # fallback -> returns None if anything crashes
-                
-        finally:
-            await self.close_http_session()
