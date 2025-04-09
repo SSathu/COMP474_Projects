@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from langchain_ollama import OllamaLLM
 
 from routes import classify_router
@@ -24,3 +24,10 @@ app.include_router(classify_router)
 @app.get("/")
 async def root():
     return {"message": "Hello World!"}
+
+@app.post('/testing')
+async def testing(request: Request):
+    
+    data = await request.json()
+    
+    return {"response": data}
