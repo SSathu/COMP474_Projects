@@ -4,6 +4,7 @@ from langchain_ollama import OllamaLLM
 
 from routes import classify_router
 from tools.classifier import ClassifierTool
+from tools.dbpediaAPI import get_from_dbpedia_spotlight
 
 import os
 
@@ -55,6 +56,8 @@ async def chat(request: Request):
     data = await request.json()
     
     text = data['text']
+    
+    
     
     pass
 
