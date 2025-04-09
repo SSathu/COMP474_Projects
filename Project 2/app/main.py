@@ -4,7 +4,6 @@ from langchain_ollama import OllamaLLM
 
 from routes import classify_router
 from tools.classifier import ClassifierTool
-from tools.dbpediaAPI import get_from_dbpedia_spotlight
 
 import os
 
@@ -29,7 +28,7 @@ async def root():
 @app.post('/testing')
 async def testing(request: Request):
     
-    data = await request.json()
+    data = request.json if request else None
     
     lorem_ipsum = """
 Lorem ipsum dolor sit amet, consectetur a
