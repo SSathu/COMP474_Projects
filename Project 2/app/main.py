@@ -49,6 +49,14 @@ async def testing(request: Request):
     
     return {"response": annotated_text}
 
+@app.post("/chat")
+async def chat(request: Request):
+    
+    data = await request.json()
+    
+    text = data['text']
+    
+    pass
 
 
 
