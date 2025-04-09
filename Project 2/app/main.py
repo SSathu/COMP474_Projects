@@ -28,6 +28,6 @@ async def root():
 @app.post('/testing')
 async def testing(request: Request):
     
-    data = await request.json()
+    data = request.json if request else None
     
     return {"response": data}
