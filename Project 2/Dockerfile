@@ -31,7 +31,7 @@ RUN chmod +x /scripts/ollama-entrypoint.sh
 # install requirements
 WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
-RUN pip install --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir -r /code/requirements.txt
 
 # # run setup script
 # RUN /scripts/setup.sh

@@ -1,8 +1,8 @@
 from langchain.chains import LLMChain
 
-from models.schemas import ClassificationResult
-from prompts.classification import CLASSIFICATION_PROMPT
-from prompts.model_prompts import PROMPTS
+from ..models.schemas import ClassificationResult
+from ..prompts.classification import CLASSIFICATION_PROMPT
+from ..prompts.model_prompts import PROMPTS
 
 
 class ClassifierTool:

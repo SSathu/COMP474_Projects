@@ -69,13 +69,6 @@ class SyntaxTreeTool:
                 "ent_text": ent.text,
                 "ent_label_": ent.label_
             })
-        print("Roots:", self.debug_json_serializable(roots))
-        print("subjects:", self.debug_json_serializable(subjects))
-        print("direct_objects:", self.debug_json_serializable(direct_objects))
-        print("noun_phrases:", self.debug_json_serializable(important_noun_phrases))
-        print("key_dependencies:", self.debug_json_serializable(key_dependencies))
-        print("entities:", self.debug_json_serializable(self.doc.ents))
-        print("sentences:", self.debug_json_serializable(sentences))
 
         return {
             "roots": roots,
@@ -87,7 +80,7 @@ class SyntaxTreeTool:
             "sentences": sentences
         }
     
-    def debug_json_serializable(self, obj):
+def debug_json_serializable(obj):
         try:
             json.dumps(obj)
             return True
