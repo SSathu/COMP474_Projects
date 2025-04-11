@@ -3,6 +3,9 @@ from components.connector import HTTPConnector
 from logs.loggers import logger
 import time
 import asyncio
+import requests
+
+from models import Query
 
 # -----INITIALIZATION-------------
 
@@ -33,20 +36,46 @@ welcome_message = [
 # -----MAIN-ASYNC-LOOP---------
 
 async def main_loop():
-    
     logger.debug("Starting Terminal Chatbot....")
-    
+
     for w in welcome_message:
-        print(w)
+            print(w)
+
+    while(True):
+
+        print()
+
+        user_input = input(f"{get_username_indentation()} ")
+
+        print()
+
+        if "exit chatbot" in user_input:
+            print(f"{chatbot_indentation} You wrote 'exit chatbot'! Now quitting the program. See you next time!", end=' ')
+            break
+
+        query = Query(text=user_input)
+        
+        response_data = await terminal_analyze_via_api(query)
+        if response_data:
+            print(f"{chatbot_indentation} {response_data}")
     
-    print()
-    
-    answer = input(f"{get_username_indentation()} ")
-    
-    print()
-    
-    response = await hc.send_message(path="/testing", data={"text":answer})
-    
+async def terminal_analyze_via_api(query: Query):
+    try: 
+        payload = {"text": query.text}
+        response = requests.post(
+            "http://fastapi:80/api/v1/chat",
+            json=payload,
+            timeout=2.0
+            )
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"API error: {e}")
+        return None
+    except ValueError as e:
+        print(f"JSON decoding error: {e}")
+        return None
+
+    """
     # expects a response of format {"response":"......."}
     
     raw_response_first = response["response"]
@@ -109,11 +138,7 @@ async def main_loop():
                 print(f"\n{empty_indentation} {response_list_2[i]}", end=' ')
         
         print()
-        
-        
-        
-        
-    
+"""
     
     
 # -----MAIN-METHOD----------------
@@ -124,3 +149,4 @@ if __name__=="__main__":
     # giving docker enough time to attach the container to the terminal, so we dont miss any outputs
     
     asyncio.run(main_loop())
+

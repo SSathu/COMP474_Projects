@@ -1,13 +1,12 @@
 from fastapi import APIRouter, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
-from tools.classifier import ClassifierTool
-from tools.syntax_tree import SyntaxTreeTool
-from models import Query
+from ..tools import ClassifierTool, SyntaxTreeTool
+from ..models import Query
 import spacy
 from spacy import displacy
 from spacy.matcher import Matcher
 from IPython.core.display import JSON
-from logs import logger
+from ..logs import logger
 
 
 
